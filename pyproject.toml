@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "handcursor"
+version = "0.1.0"
+description = "Control your laptop cursor with hand movement and gestures through the webcam."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mediapipe>=1.2,<2",
+    # mediapipe already requires the contrib build; opencv-python would conflict with it.
+    "opencv-contrib-python>=5,<6",
+    "numpy>=2",
+    "pynput>=1.8,<2",
+    "screeninfo>=0.8,<1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+handcursor = "handcursor.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]

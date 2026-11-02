@@ -1,0 +1,71 @@
+# Copy to config.toml and run: handcursor --config config.toml
+# Every key is optional; these are the defaults.
+
+camera_index = 0
+camera_width = 640
+camera_height = 480
+# If the webcam itself is turned, such as on a 2-in-1: 0, 90, 180 or 270 degrees clockwise.
+camera_rotation = 0
+
+# Which screens the hand controls: "all", or one monitor's number, where 0 is
+# the primary. See handcursor --list-monitors.
+monitor = "all"
+
+# Start with the preview window fullscreen. Press f to toggle while running.
+fullscreen = false
+
+# Which hands to use: "both", "left" or "right".
+hand = "both"
+# Which hand steers when both are visible. The other can still click, drag and scroll.
+cursor_hand = "right"
+
+# Part of the camera frame (left, top, right, bottom, 0-1) that maps to the whole
+# screen. Shrink it to move your hand less; it also keeps your fingers in frame.
+region = [0.2, 0.25, 0.8, 0.75]
+
+# Cursor smoothing. Lower min_cutoff = steadier when still.
+# Higher beta = less lag when moving fast.
+min_cutoff = 1.0
+beta = 0.01
+
+# Pinch distance as a fraction of palm size. Lower = fingers must get closer.
+pinch_enter = 0.3
+# Must be larger than pinch_enter, so a held pinch doesn't flicker.
+pinch_exit = 0.45
+
+# Frames a new gesture must persist before it takes effect.
+stable_frames = 3
+# Seconds a pinch is held before it becomes a drag rather than a click.
+drag_hold = 0.35
+# Seconds of lost tracking tolerated before a drag is dropped.
+hand_lost_grace = 0.25
+# Scroll notches for a hand movement of one full camera-frame height.
+scroll_speed = 30.0
+
+# Seconds an action gesture must be held before it fires, to avoid accidents.
+action_hold = 0.5
+
+# An action is one of:
+#   open:TARGET   an app, file, folder or URL, anything the Run dialog would accept
+#   keys:COMBO    a keyboard shortcut, such as <cmd>+d or <ctrl>+<shift>+<esc>
+#   launcher      show or hide the tiles below
+#   none          do nothing
+ring_pinch_action = "launcher"
+pinky_pinch_action = "keys:<cmd>+<tab>"
+
+# The launcher's tiles: ["name", "action"].
+apps = [
+    ["Browser", "open:https://www.google.com"],
+    ["Files", "open:explorer"],
+    ["Notepad", "open:notepad"],
+    ["Calculator", "open:calc"],
+    ["On-screen keyboard", "open:osk"],
+    ["Settings", "open:ms-settings:"],
+    ["Start menu", "keys:<cmd>"],
+    ["Task view", "keys:<cmd>+<tab>"],
+    ["Show desktop", "keys:<cmd>+d"],
+]
+
+toggle_hotkey = "<ctrl>+<alt>+h"
+quit_hotkey = "<ctrl>+<alt>+q"
+monitor_hotkey = "<ctrl>+<alt>+m"
