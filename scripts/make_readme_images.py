@@ -96,8 +96,10 @@ def fist_hand() -> dict:
 
 
 class Canvas:
-    def __init__(self) -> None:
-        self.image = np.full((CARD[1] * DRAW_SCALE, CARD[0] * DRAW_SCALE, 3), BACKGROUND, np.uint8)
+    def __init__(self, size: tuple[int, int] = CARD, corner: int = 16) -> None:
+        self.size = size
+        self.corner = corner
+        self.image = np.full((size[1] * DRAW_SCALE, size[0] * DRAW_SCALE, 3), BACKGROUND, np.uint8)
 
     def _px(self, point: tuple[float, float]) -> tuple[int, int]:
         return round(point[0] * DRAW_SCALE), round(point[1] * DRAW_SCALE)
@@ -120,11 +122,11 @@ class Canvas:
 
     def finished(self) -> np.ndarray:
         """The card shrunk to its final size, with rounded transparent corners."""
-        size = (CARD[0] * OUTPUT_SCALE, CARD[1] * OUTPUT_SCALE)
+        size = (self.size[0] * OUTPUT_SCALE, self.size[1] * OUTPUT_SCALE)
         image = cv2.resize(self.image, size, interpolation=cv2.INTER_AREA)
         mask = np.zeros(self.image.shape[:2], np.uint8)
-        radius = 16 * DRAW_SCALE
-        width, height = CARD[0] * DRAW_SCALE, CARD[1] * DRAW_SCALE
+        radius = self.corner * DRAW_SCALE
+        width, height = self.size[0] * DRAW_SCALE, self.size[1] * DRAW_SCALE
         cv2.rectangle(mask, (radius, 0), (width - radius, height), 255, -1)
         cv2.rectangle(mask, (0, radius), (width, height - radius), 255, -1)
         for x in (radius, width - radius):
@@ -170,6 +172,18 @@ def card(hand: dict, *, dots: tuple = (), arrows: tuple = ()) -> np.ndarray:
         canvas.dot(point, 7, ACCENT)
     for start, end in arrows:
         canvas.arrow(start, end)
+    return canvas.finished()
+
+
+def logo() -> np.ndarray:
+    """An open hand with a cursor pointer on the palm."""
+    canvas = Canvas(size=(260, 260), corner=52)
+    draw_hand(canvas, {i: (x + 23, y) for i, (x, y) in OPEN_HAND.items()})
+    tip = (122, 132)
+    pointer = [(0, 0), (0, 78), (19, 60), (32, 90), (47, 84), (34, 55), (59, 55)]
+    points = [(tip[0] + x, tip[1] + y) for x, y in pointer]
+    canvas.stroke(points + points[:1], 10, BACKGROUND)
+    canvas.polygon(points, ACCENT)
     return canvas.finished()
 
 
@@ -221,10 +235,11 @@ def main() -> None:
     gap = np.zeros((CARD[1] * OUTPUT_SCALE, 24, 4), np.uint8)
     both = np.hstack((cv2.flip(images["left-click"], 1), gap, images["move"]))
     cv2.imwrite(str(OUT_DIR / "both-hands.png"), both)
+    cv2.imwrite(str(OUT_DIR / "logo.png"), logo())
     for name, image in images.items():
         cv2.imwrite(str(OUT_DIR / f"gesture-{name}.png"), image)
     cv2.imwrite(str(OUT_DIR / "preview.png"), preview_mockup())
-    print(f"Wrote {len(images) + 2} images to {OUT_DIR}")
+    print(f"Wrote {len(images) + 3} images to {OUT_DIR}")
 
 
 if __name__ == "__main__":

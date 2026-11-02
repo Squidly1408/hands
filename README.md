@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/images/banner.png" alt="handcursor logo: a hand with a cursor pointer on its palm" width="140">
+</p>
+
 # handcursor
 
 Control your computer with one or both hands through the webcam: move the cursor across
@@ -10,7 +14,7 @@ Developed and tested on Windows 11 with Python 3.11.
 
 <img src="docs/images/preview.png" alt="Preview window showing two tracked hands, the active region and the status bar" width="480">
 
-*An illustration of the preview window. The live one draws this over your camera feed.*
+_An illustration of the preview window. The live one draws this over your camera feed._
 
 ## Setup
 
@@ -36,16 +40,16 @@ handcursor
 
 ## Gestures
 
-| | Gesture | Action |
-| --- | --- | --- |
-| <img src="docs/images/gesture-move.png" alt="Open hand" width="120"> | Open hand (or pointing) | Move the cursor; it follows your palm |
-| <img src="docs/images/gesture-left-click.png" alt="Thumb and index pinched" width="120"> | Thumb + index, quick pinch | Left click (two quick pinches for a double click) |
-| <img src="docs/images/gesture-drag.png" alt="Thumb and index pinched, with arrows showing movement" width="120"> | Thumb + index, hold | Drag until you let go |
-| <img src="docs/images/gesture-right-click.png" alt="Thumb and middle finger pinched, index raised" width="120"> | Thumb + middle, index raised | Right click |
-| <img src="docs/images/gesture-scroll.png" alt="Index and middle fingers up, with up and down arrows" width="120"> | Index + middle up, others down | Scroll; move your hand up or down |
-| <img src="docs/images/gesture-pause.png" alt="Fist" width="120"> | Fist | Hold the cursor still |
-| <img src="docs/images/gesture-launcher.png" alt="Thumb and ring finger pinched" width="120"> | Thumb + ring, hold ½ second | Open or close the app launcher |
-| <img src="docs/images/gesture-task-view.png" alt="Thumb and little finger pinched" width="120"> | Thumb + little finger, hold ½ second | Task view, to switch windows |
+|                                                                                                                   | Gesture                              | Action                                            |
+| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------- |
+| <img src="docs/images/gesture-move.png" alt="Open hand" width="120">                                              | Open hand (or pointing)              | Move the cursor; it follows your palm             |
+| <img src="docs/images/gesture-left-click.png" alt="Thumb and index pinched" width="120">                          | Thumb + index, quick pinch           | Left click (two quick pinches for a double click) |
+| <img src="docs/images/gesture-drag.png" alt="Thumb and index pinched, with arrows showing movement" width="120">  | Thumb + index, hold                  | Drag until you let go                             |
+| <img src="docs/images/gesture-right-click.png" alt="Thumb and middle finger pinched, index raised" width="120">   | Thumb + middle, index raised         | Right click                                       |
+| <img src="docs/images/gesture-scroll.png" alt="Index and middle fingers up, with up and down arrows" width="120"> | Index + middle up, others down       | Scroll; move your hand up or down                 |
+| <img src="docs/images/gesture-pause.png" alt="Fist" width="120">                                                  | Fist                                 | Hold the cursor still                             |
+| <img src="docs/images/gesture-launcher.png" alt="Thumb and ring finger pinched" width="120">                      | Thumb + ring, hold ½ second          | Open or close the app launcher                    |
+| <img src="docs/images/gesture-task-view.png" alt="Thumb and little finger pinched" width="120">                   | Thumb + little finger, hold ½ second | Task view, to switch windows                      |
 
 The cursor follows your palm rather than a fingertip, so it stays where you aimed while
 your fingers close. The rectangle in the preview maps to the whole screen, so you only
@@ -91,12 +95,12 @@ apps = [
 ]
 ```
 
-| Action | What it does |
-| --- | --- |
-| `open:TARGET` | Opens an app, file, folder or URL: anything the Run dialog accepts |
-| `keys:COMBO` | Sends a keyboard shortcut, such as `<cmd>+d` or `<ctrl>+<shift>+<esc>` |
-| `launcher` | Opens or closes the launcher |
-| `none` | Nothing |
+| Action        | What it does                                                           |
+| ------------- | ---------------------------------------------------------------------- |
+| `open:TARGET` | Opens an app, file, folder or URL: anything the Run dialog accepts     |
+| `keys:COMBO`  | Sends a keyboard shortcut, such as `<cmd>+d` or `<ctrl>+<shift>+<esc>` |
+| `launcher`    | Opens or closes the launcher                                           |
+| `none`        | Nothing                                                                |
 
 ## Screens and orientation
 
@@ -112,12 +116,12 @@ on a 2-in-1 or a rotated monitor, tell the app with `--camera-rotation 90` (or 1
 
 ## Controls
 
-| Action | Preview window focused | Anywhere |
-| --- | --- | --- |
-| Pause / resume | `space` | `Ctrl+Alt+H` |
-| Next screen | `m` | `Ctrl+Alt+M` |
-| Fullscreen on / off | `f` (`Esc` also exits) | |
-| Quit | `q`, or `Esc` when not fullscreen | `Ctrl+Alt+Q` |
+| Action              | Preview window focused            | Anywhere     |
+| ------------------- | --------------------------------- | ------------ |
+| Pause / resume      | `space`                           | `Ctrl+Alt+H` |
+| Next screen         | `m`                               | `Ctrl+Alt+M` |
+| Fullscreen on / off | `f` (`Esc` also exits)            |              |
+| Quit                | `q`, or `Esc` when not fullscreen | `Ctrl+Alt+Q` |
 
 The preview window can also be resized or maximized. Fullscreen fills the monitor the
 window is on, so if that's also the monitor you're controlling, it covers what you're
@@ -140,16 +144,16 @@ Monitor 0 is always the primary; run `handcursor --list-monitors` to see the oth
 To tune behaviour, copy `config.example.toml` to `config.toml`, edit it, and pass
 `--config config.toml`. Common adjustments:
 
-| Problem | Setting |
-| --- | --- |
-| Cursor is jittery | Lower `min_cutoff` |
-| Cursor lags behind | Raise `beta` |
-| Hand has to move too far | Shrink `region` |
-| Clicks fire by accident | Lower `pinch_enter`, raise `stable_frames` |
-| Pinches are missed | Raise `pinch_enter` and `pinch_exit` |
-| Clicks turn into drags | Raise `drag_hold` |
-| Apps open by accident | Raise `action_hold` |
-| Scrolling is too fast or slow | Change `scroll_speed` |
+| Problem                       | Setting                                    |
+| ----------------------------- | ------------------------------------------ |
+| Cursor is jittery             | Lower `min_cutoff`                         |
+| Cursor lags behind            | Raise `beta`                               |
+| Hand has to move too far      | Shrink `region`                            |
+| Clicks fire by accident       | Lower `pinch_enter`, raise `stable_frames` |
+| Pinches are missed            | Raise `pinch_enter` and `pinch_exit`       |
+| Clicks turn into drags        | Raise `drag_hold`                          |
+| Apps open by accident         | Raise `action_hold`                        |
+| Scrolling is too fast or slow | Change `scroll_speed`                      |
 
 ## Troubleshooting
 
